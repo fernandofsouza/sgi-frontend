@@ -13,7 +13,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, SlicePipe } from '@angular/common';
 import { IndicatorService } from '../../../core/services/indicator.service';
 import { IndicatorSummary } from '../../../core/models/indicator.model';
 
@@ -24,7 +24,7 @@ import { IndicatorSummary } from '../../../core/models/indicator.model';
     MatCardModule, MatIconModule, MatButtonModule, MatTableModule,
     MatPaginatorModule, MatInputModule, MatFormFieldModule,
     MatProgressSpinnerModule, MatSelectModule, MatChipsModule,
-    MatSnackBarModule, RouterLink, FormsModule, NgClass,
+    MatSnackBarModule, RouterLink, FormsModule, NgClass, SlicePipe,
   ],
   template: `
     <div class="list-page">

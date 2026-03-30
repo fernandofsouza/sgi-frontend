@@ -8,7 +8,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgStyle, SlicePipe } from '@angular/common';
 import { IndicatorService } from '../../core/services/indicator.service';
 import { IndicatorSummary, REFERENCE_RANGES, getReferenceOptions, ReferenceRange } from '../../core/models/indicator.model';
 
@@ -26,7 +26,7 @@ interface StatCard {
   imports: [
     MatCardModule, MatIconModule, MatSelectModule, MatFormFieldModule,
     MatProgressBarModule, MatChipsModule, MatButtonModule,
-    RouterLink, FormsModule, NgClass, NgStyle,
+    RouterLink, FormsModule, NgClass, NgStyle, SlicePipe,
   ],
   template: `
     <div class="dashboard">

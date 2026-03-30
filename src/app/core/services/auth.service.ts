@@ -1,7 +1,8 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed, DestroyRef } from '@angular/core';
 import { MsalService, MsalBroadcastService } from '@azure/msal-angular';
 import { InteractionStatus, AccountInfo } from '@azure/msal-browser';
-import { filter, takeUntilDestroyed } from 'rxjs';
+import { filter, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 export interface CurrentUser {
@@ -15,8 +16,8 @@ export interface CurrentUser {
 export class AuthService {
   private readonly msal      = inject(MsalService);
   private readonly broadcast = inject(MsalBroadcastService);
+  private readonly destroy$  = new Subject<void>();
 
-  // Signals reativos
   private readonly _user    = signal<CurrentUser | null>(null);
   private readonly _loading = signal(true);
 
@@ -26,7 +27,7 @@ export class AuthService {
 
   constructor() {
     if (!environment.entraId.enabled) {
-      // DEV: usuário mock
+      // DEV / Heroku sem Entra ID: usuário mock
       this._user.set({ id: 'dev-user', name: 'Dev User', email: 'dev@sgi.local', roles: ['SGI_ADMIN'] });
       this._loading.set(false);
       return;
@@ -35,7 +36,7 @@ export class AuthService {
     this.broadcast.inProgress$
       .pipe(
         filter(status => status === InteractionStatus.None),
-        takeUntilDestroyed()
+        takeUntil(this.destroy$)
       )
       .subscribe(() => {
         const account = this.msal.instance.getActiveAccount() ?? this.msal.instance.getAllAccounts()[0];
@@ -51,6 +52,8 @@ export class AuthService {
   }
 
   logout(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     this.msal.logoutRedirect();
   }
 
