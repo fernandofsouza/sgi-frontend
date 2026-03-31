@@ -1,0 +1,32 @@
+# Dependências
+node_modules/
+
+# Build output
+dist/
+.angular/
+tmp/
+
+# Arquivos de ambiente local
+*.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.npm
+.cache
