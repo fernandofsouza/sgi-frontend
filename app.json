@@ -1,0 +1,18 @@
+{
+  "name": "SGI Frontend",
+  "description": "Angular frontend — Sistema de Gestão de Indicadores",
+  "buildpacks": [
+    { "url": "heroku/nodejs" }
+  ],
+  "environments": {
+    "test": {
+      "buildpacks": [
+        { "url": "heroku/nodejs" },
+        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
+      ],
+      "scripts": {
+        "test": "npm run test:ci && npm run e2e:ci"
+      }
+    }
+  }
+}
