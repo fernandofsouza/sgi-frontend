@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { IndicatorService } from '../../core/services/indicator.service';
 import { IndicatorSummary } from '../../core/models/indicator.model';
 
@@ -21,7 +21,7 @@ interface CascadeNode extends IndicatorSummary {
   imports: [
     MatCardModule, MatIconModule, MatProgressBarModule,
     MatButtonModule, MatChipsModule, MatProgressSpinnerModule,
-    RouterLink, NgClass, NgStyle,
+    RouterLink, NgClass, NgStyle, NgTemplateOutlet,
   ],
   template: `
     <div class="cascade-page">
