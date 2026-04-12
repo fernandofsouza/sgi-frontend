@@ -106,9 +106,25 @@ interface NavItem {
 
     mat-nav-list { flex: 1; padding-top: 8px; }
 
-    a[mat-list-item] { color: rgba(255,255,255,0.75); border-radius: 8px; margin: 2px 8px; }
-    a[mat-list-item]:hover { background: rgba(255,255,255,0.08); color: white; }
-    .nav-active { background: rgba(96,165,250,0.2) !important; color: #60a5fa !important; }
+    a[mat-list-item] {
+      color: rgba(255,255,255,0.75);
+      border-radius: 8px;
+      margin: 2px 8px;
+      --mdc-list-list-item-label-text-color: rgba(255,255,255,0.75);
+      --mdc-list-list-item-leading-icon-color: rgba(255,255,255,0.75);
+    }
+    a[mat-list-item]:hover {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      --mdc-list-list-item-label-text-color: white;
+      --mdc-list-list-item-leading-icon-color: white;
+    }
+    .nav-active {
+      background: rgba(96,165,250,0.2) !important;
+      color: #60a5fa !important;
+      --mdc-list-list-item-label-text-color: #60a5fa !important;
+      --mdc-list-list-item-leading-icon-color: #60a5fa !important;
+    }
 
     .sidenav-footer {
       padding: 16px;
