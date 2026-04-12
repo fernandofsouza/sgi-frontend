@@ -16,7 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IndicatorService } from '../../../core/services/indicator.service';
 import { TeamMemberService } from '../../../core/services/team-member.service';
 import { SystemConfigService } from '../../../core/services/system-config.service';
-import { IndicatorDetail, IndicatorSummary, TeamMember, REFERENCE_RANGES, getReferenceOptions, ReferenceRange, DEFAULT_ACHIEVEMENT_SCALE } from '../../../core/models/indicator.model';
+import { IndicatorDetail, IndicatorSummary, TeamMember, REFERENCE_RANGES, getReferenceOptions, ReferenceRange } from '../../../core/models/indicator.model';
 
 @Component({
   selector: 'app-indicator-form',
@@ -213,6 +213,17 @@ import { IndicatorDetail, IndicatorSummary, TeamMember, REFERENCE_RANGES, getRef
           <!-- ── Ações ──────────────────────────────────────────────── -->
           <div class="form-actions">
             <button mat-stroked-button type="button" routerLink="/indicators">Cancelar</button>
+
+            @if (isEdit && canDelete()) {
+              <button mat-raised-button color="warn" type="button"
+                      [disabled]="deleting()"
+                      (click)="deleteIndicator()">
+                @if (deleting()) { <mat-spinner diameter="20" /> }
+                @else { <mat-icon>delete</mat-icon> }
+                Excluir indicador
+              </button>
+            }
+
             <button mat-raised-button color="primary" type="submit"
                     [disabled]="form.invalid || saving()">
               @if (saving()) { <mat-spinner diameter="20" /> }
@@ -259,6 +270,7 @@ export class IndicatorFormComponent implements OnInit {
 
   readonly loadingData      = signal(true);
   readonly saving           = signal(false);
+  readonly deleting         = signal(false);
   readonly members          = signal<TeamMember[]>([]);
   readonly indicators       = signal<IndicatorSummary[]>([]);
   readonly creationStatuses = signal<string[]>([]);
@@ -364,6 +376,27 @@ export class IndicatorFormComponent implements OnInit {
       targetValue:  [c?.targetValue ?? 0],
       currentValue: [c?.currentValue ?? 0],
       unit:         [c?.unit ?? ''],
+    });
+  }
+
+  canDelete(): boolean {
+    const status = this.form.get('creationStatus')?.value ?? '';
+    return status === 'Não iniciado' || status === 'Em edição';
+  }
+
+  deleteIndicator(): void {
+    if (!this.indicatorId) return;
+    if (!confirm('Tem certeza que deseja excluir este indicador? Esta ação não pode ser desfeita.')) return;
+    this.deleting.set(true);
+    this.indicatorSvc.delete(this.indicatorId).subscribe({
+      next: () => {
+        this.snack.open('Indicador excluído.', '', { duration: 2500 });
+        this.router.navigate(['/indicators']);
+      },
+      error: () => {
+        this.snack.open('Erro ao excluir indicador.', '', { duration: 3000 });
+        this.deleting.set(false);
+      },
     });
   }
 
