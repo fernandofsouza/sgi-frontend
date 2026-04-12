@@ -16,7 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IndicatorService } from '../../../core/services/indicator.service';
 import { TeamMemberService } from '../../../core/services/team-member.service';
 import { SystemConfigService } from '../../../core/services/system-config.service';
-import { IndicatorDetail, TeamMember, REFERENCE_RANGES, getReferenceOptions, ReferenceRange, DEFAULT_ACHIEVEMENT_SCALE } from '../../../core/models/indicator.model';
+import { IndicatorDetail, IndicatorSummary, TeamMember, REFERENCE_RANGES, getReferenceOptions, ReferenceRange, DEFAULT_ACHIEVEMENT_SCALE } from '../../../core/models/indicator.model';
 
 @Component({
   selector: 'app-indicator-form',
@@ -89,7 +89,16 @@ import { IndicatorDetail, TeamMember, REFERENCE_RANGES, getReferenceOptions, Ref
 
               <mat-form-field appearance="outline">
                 <mat-label>Indicador Pai</mat-label>
-                <input matInput formControlName="parentId" placeholder="ID do indicador pai (opcional)" />
+                <mat-select formControlName="parentId">
+                  <mat-option value="">Nenhum</mat-option>
+                  @for (ind of indicators(); track ind.id) {
+                    @if (ind.id !== indicatorId) {
+                      <mat-option [value]="ind.id">
+                        {{ ind.pdgId ? '[' + ind.pdgId + '] ' : '' }}{{ ind.title }}
+                      </mat-option>
+                    }
+                  }
+                </mat-select>
               </mat-form-field>
 
               <mat-form-field appearance="outline">
@@ -251,6 +260,7 @@ export class IndicatorFormComponent implements OnInit {
   readonly loadingData      = signal(true);
   readonly saving           = signal(false);
   readonly members          = signal<TeamMember[]>([]);
+  readonly indicators       = signal<IndicatorSummary[]>([]);
   readonly creationStatuses = signal<string[]>([]);
   readonly progressStatuses = signal<string[]>([]);
   readonly refOptions       = signal<string[]>([]);
@@ -285,6 +295,7 @@ export class IndicatorFormComponent implements OnInit {
 
     // Carrega dados paralelos
     this.teamSvc.findAll().subscribe(m => this.members.set(m));
+    this.indicatorSvc.findAll({ size: 500 }).subscribe(page => this.indicators.set(page.content));
     this.configSvc.getConfig().subscribe(cfg => {
       this.creationStatuses.set(cfg.creationStatuses);
       this.progressStatuses.set(cfg.progressStatuses);
@@ -361,7 +372,6 @@ export class IndicatorFormComponent implements OnInit {
     this.saving.set(true);
 
     const payload = { ...this.form.value };
-    if (!payload.parentId) delete payload.parentId;
     if (!payload.editorId) delete payload.editorId;
     if (!payload.validatorId) delete payload.validatorId;
 
