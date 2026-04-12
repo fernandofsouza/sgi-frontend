@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -10,7 +10,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TeamMemberService } from '../../core/services/team-member.service';
 import { TeamMember } from '../../core/models/indicator.model';
-import { Component as DialogComp } from '@angular/core';
 
 @Component({
   selector: 'app-team-dialog',
@@ -42,15 +41,15 @@ import { Component as DialogComp } from '@angular/core';
   styles: [`.member-form { display: flex; flex-direction: column; gap: 8px; min-width: 340px; padding-top: 8px; }`],
 })
 export class TeamMemberDialogComponent {
-  data: TeamMember | null = null;
+  readonly data = inject<TeamMember | undefined>(MAT_DIALOG_DATA);
+  readonly dialogRef = inject(MatDialogRef<TeamMemberDialogComponent>);
   readonly form = inject(FormBuilder).group({
-    name:  ['', Validators.required],
-    role:  ['', Validators.required],
-    email: ['', Validators.email],
+    name:  [this.data?.name  ?? '', Validators.required],
+    role:  [this.data?.role  ?? '', Validators.required],
+    email: [this.data?.email ?? '', Validators.email],
   });
-  readonly dialogRef = inject(MatDialog);
 
-  save() { /* handled by parent */ }
+  save(): void { this.dialogRef.close(this.form.value); }
 }
 
 @Component({
