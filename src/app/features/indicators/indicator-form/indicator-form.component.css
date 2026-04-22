@@ -1,0 +1,17 @@
+.form-page { display: flex; flex-direction: column; gap: 20px; }
+.page-header { display: flex; align-items: center; gap: 12px; }
+h1 { font-size: 22px; font-weight: 700; margin: 0; }
+.loading-center { display: flex; justify-content: center; padding: 80px; }
+
+form { display: flex; flex-direction: column; gap: 20px; }
+mat-card-content.card-fields { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px !important; }
+mat-card mat-card-header { display: flex; justify-content: space-between; align-items: center; }
+mat-form-field { min-width: 200px; flex: 1; }
+.full { flex: 1 1 100%; }
+
+.criteria-row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 8px; }
+.criteria-row mat-form-field { min-width: 120px; flex: 1; }
+
+.empty-hint { text-align: center; color: #94a3b8; padding: 16px; }
+
+.form-actions { display: flex; justify-content: flex-end; gap: 12px; }

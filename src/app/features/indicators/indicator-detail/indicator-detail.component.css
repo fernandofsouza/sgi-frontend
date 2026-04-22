@@ -1,0 +1,73 @@
+.detail-page { display: flex; flex-direction: column; gap: 20px; }
+.loading-center { display: flex; justify-content: center; padding: 80px; }
+
+.detail-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.header-left { display: flex; align-items: flex-start; gap: 12px; }
+.seq-title { display: flex; align-items: center; gap: 10px; }
+.seq { background: #3b82f6; color: white; border-radius: 8px; padding: 2px 10px; font-size: 13px; font-weight: 700; }
+h1 { font-size: 22px; font-weight: 700; margin: 0 0 8px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.progress-card mat-card-content { padding: 20px !important; }
+.progress-row { margin-bottom: 12px; }
+.progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.progress-label { color: #64748b; font-size: 14px; }
+.progress-value { font-weight: 700; font-size: 18px; }
+.meta-row { display: flex; gap: 20px; font-size: 13px; color: #64748b; flex-wrap: wrap; }
+.meta-icon { font-size: 15px; width: 15px; height: 15px; margin-right: 4px; vertical-align: middle; }
+.parent-link { color: #3b82f6; text-decoration: none; display: flex; align-items: center; }
+
+.tab-content { display: flex; flex-direction: column; gap: 16px; padding: 20px 0; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+mat-card-content { padding: 16px !important; }
+.description { color: #475569; line-height: 1.6; margin: 0; }
+.observation { display: flex; align-items: flex-start; gap: 8px; color: #64748b; font-size: 13px; margin: 12px 0 0; }
+
+.member-list { display: flex; flex-direction: column; gap: 12px; }
+.member-item { display: flex; align-items: center; gap: 10px; }
+mat-divider { margin: 12px 0 !important; }
+.role-row { display: flex; gap: 8px; font-size: 13px; margin-top: 6px; }
+.role-label { color: #64748b; }
+
+.full-table { width: 100%; }
+
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.avatar.sm { width: 32px; height: 32px; font-size: 11px; }
+.member-name { display: block; font-size: 14px; font-weight: 600; }
+.member-role { display: block; font-size: 12px; color: #64748b; }
+
+.checkin-form-card mat-card-content { padding: 16px !important; }
+.checkin-form { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.checkin-form mat-form-field { min-width: 160px; }
+.full-width { flex: 1 1 100%; }
+
+.checkin-history { display: flex; flex-direction: column; gap: 10px; }
+.checkin-card mat-card-content { padding: 16px !important; }
+.checkin-row { display: flex; gap: 12px; }
+.checkin-body { flex: 1; }
+.checkin-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 14px; }
+.sep { color: #cbd5e1; }
+.progress-badge { background: #eff6ff; color: #3b82f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.notes { font-size: 13px; color: #475569; margin: 0; }
+.empty-hint { text-align: center; color: #94a3b8; padding: 32px; }
+
+.scale-list { display: flex; flex-direction: column; gap: 12px; }
+.scale-item { display: flex; align-items: center; gap: 16px; padding: 12px; border-radius: 8px; background: #f8fafc; }
+.scale-value { width: 36px; height: 36px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.scale-label { font-size: 15px; }
+
+.children-list { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge { padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.badge.green  { background: #dcfce7; color: #15803d; }
+.badge.yellow { background: #fef9c3; color: #854d0e; }
+.badge.red    { background: #fee2e2; color: #991b1b; }
+.badge.blue   { background: #dbeafe; color: #1d4ed8; }
+.badge.gray   { background: #f1f5f9; color: #475569; }
+.badge-outline { background: transparent; border: 1px solid #e2e8f0; color: #64748b; }
+
+.bar-red .mdc-linear-progress__bar-inner   { border-color: #ef4444 !important; }
+.bar-green .mdc-linear-progress__bar-inner { border-color: #22c55e !important; }

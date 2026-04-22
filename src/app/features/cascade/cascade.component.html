@@ -1,0 +1,61 @@
+<div class="cascade-page">
+  <header class="page-header">
+    <h1><mat-icon>account_tree</mat-icon> Visão em Cascata</h1>
+    <p class="subtitle">Hierarquia de indicadores vinculados</p>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-center">
+      <mat-spinner diameter="40" />
+    </div>
+  } @else if (tree().length === 0) {
+    <div class="empty-state">
+      <mat-icon>account_tree</mat-icon>
+      <p>Nenhum indicador cadastrado.</p>
+      <a mat-raised-button color="primary" routerLink="/indicators/new">Criar indicador</a>
+    </div>
+  } @else {
+    <div class="tree-container">
+      @for (node of tree(); track node.id) {
+        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node, level: 0 }" />
+      }
+    </div>
+  }
+</div>
+
+<ng-template #nodeTemplate let-node="node" let-level="level">
+  <div class="node-wrapper" [ngStyle]="{ 'margin-left': level * 32 + 'px' }">
+    <mat-card class="cascade-card" [routerLink]="['/indicators', node.id]">
+      <mat-card-content>
+        <div class="card-row">
+          @if (level > 0) {
+            <mat-icon class="chevron-icon">chevron_right</mat-icon>
+          }
+          <div class="card-body">
+            <div class="card-title-row">
+              <span class="card-title">{{ node.title }}</span>
+              <span class="badge" [ngClass]="progressClass(node.progressStatus)">
+                {{ node.progressStatus }}
+              </span>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="node.progress" class="cascade-bar" />
+            <div class="card-meta">
+              <span class="progress-label">{{ node.progress }}%</span>
+              @if (node.children?.length) {
+                <span class="children-badge">
+                  <mat-icon>account_tree</mat-icon> {{ node.children.length }}
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    @if (node.children?.length) {
+      @for (child of node.children; track child.id) {
+        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: child, level: level + 1 }" />
+      }
+    }
+  </div>
+</ng-template>

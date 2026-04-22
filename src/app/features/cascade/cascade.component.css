@@ -1,0 +1,35 @@
+.cascade-page { display: flex; flex-direction: column; gap: 24px; }
+.page-header h1 { font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin: 0; }
+.subtitle { color: #64748b; margin: 4px 0 0; font-size: 14px; }
+
+.loading-center { display: flex; justify-content: center; padding: 64px; }
+
+.empty-state { text-align: center; padding: 64px; color: #94a3b8; }
+.empty-state mat-icon { font-size: 48px; width: 48px; height: 48px; margin-bottom: 12px; }
+
+.tree-container { display: flex; flex-direction: column; gap: 8px; }
+.node-wrapper { display: flex; flex-direction: column; gap: 8px; }
+
+.cascade-card { cursor: pointer; transition: box-shadow 0.2s; margin-bottom: 0; }
+.cascade-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.cascade-card mat-card-content { padding: 16px !important; }
+
+.card-row { display: flex; align-items: flex-start; gap: 8px; }
+.chevron-icon { color: #94a3b8; flex-shrink: 0; margin-top: 2px; }
+.card-body { flex: 1; }
+
+.card-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.card-title { font-size: 14px; font-weight: 600; color: #1e293b; }
+
+.cascade-bar { margin-bottom: 8px; }
+
+.card-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #64748b; }
+.progress-label { font-weight: 600; color: #1e293b; }
+.children-badge { display: flex; align-items: center; gap: 4px; }
+.children-badge mat-icon { font-size: 14px; width: 14px; height: 14px; }
+
+.badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+.badge.green  { background: #dcfce7; color: #15803d; }
+.badge.red    { background: #fee2e2; color: #991b1b; }
+.badge.teal   { background: #ccfbf1; color: #0f766e; }
+.badge.gray   { background: #f1f5f9; color: #475569; }

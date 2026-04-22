@@ -1,0 +1,5 @@
+.settings-page { display: flex; flex-direction: column; gap: 24px; }
+.page-header h1 { font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin: 0; }
+.subtitle { color: #64748b; margin: 4px 0 0; font-size: 14px; }
+mat-card-content { padding: 16px !important; }
+.actions { display: flex; justify-content: flex-end; }

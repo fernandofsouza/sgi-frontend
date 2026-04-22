@@ -1,0 +1,32 @@
+.relevance-page { display: flex; flex-direction: column; gap: 24px; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.page-header h1 { font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin: 0; }
+.subtitle { color: #64748b; margin: 4px 0 0; font-size: 14px; }
+
+.loading-center { display: flex; justify-content: center; padding: 64px; }
+.empty-state { text-align: center; padding: 64px; color: #94a3b8; }
+.empty-state mat-icon { font-size: 48px; width: 48px; height: 48px; margin-bottom: 12px; display: block; }
+
+.criteria-list { display: flex; flex-direction: column; gap: 16px; }
+.criteria-card mat-card-header { display: flex; justify-content: space-between; align-items: center; }
+.criteria-card mat-card-content { padding: 16px !important; }
+.card-actions { display: flex; gap: 4px; }
+.description { color: #475569; font-size: 14px; margin: 0 0 16px; }
+
+.scale-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.scale-chip { display: flex; align-items: center; gap: 6px; background: #f1f5f9; border-radius: 20px; padding: 4px 12px; }
+.scale-num { width: 22px; height: 22px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.scale-lbl { font-size: 13px; color: #374151; }
+
+.form-card mat-card-content { padding: 16px !important; }
+.form-fields { display: flex; flex-wrap: wrap; gap: 12px; }
+.full { flex: 1 1 100%; }
+
+.scale-section { flex: 1 1 100%; }
+.scale-title { font-size: 13px; font-weight: 600; color: #374151; margin: 0 0 10px; }
+.scale-inputs { display: flex; flex-direction: column; gap: 8px; }
+.scale-row { display: flex; align-items: center; gap: 12px; }
+.scale-num-badge { width: 32px; height: 32px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.scale-field { flex: 1; }
+
+.form-actions { display: flex; justify-content: flex-end; gap: 8px; flex: 1 1 100%; }

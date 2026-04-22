@@ -1,0 +1,49 @@
+<div class="checkins-page">
+  <header class="page-header">
+    <div>
+      <h1><mat-icon>event_available</mat-icon> Check-ins</h1>
+      <p class="subtitle">Histórico de apurações e andamento</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon> Novo Check-in
+    </button>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-center"><mat-spinner diameter="40" /></div>
+  } @else if (checkIns().length === 0) {
+    <div class="empty-state">
+      <mat-icon>event_busy</mat-icon>
+      <p>Nenhum check-in registrado ainda.</p>
+    </div>
+  } @else {
+    <div class="checkin-list">
+      @for (ck of checkIns(); track ck.id) {
+        <mat-card class="checkin-card" [routerLink]="['/indicators', ck.indicatorId]">
+          <mat-card-content>
+            <div class="checkin-row">
+              <div class="avatar">{{ initials(ck.author.name) }}</div>
+              <div class="checkin-body">
+                <div class="checkin-header">
+                  <span class="author-name">{{ ck.author.name }}</span>
+                  <span class="sep">·</span>
+                  <span class="date">{{ ck.checkDate | date:'dd/MM/yyyy' }}</span>
+                  <span class="progress-badge">{{ ck.progress }}%</span>
+                </div>
+                <p class="indicator-title">{{ ck.indicatorTitle }}</p>
+                <p class="notes">{{ ck.notes }}</p>
+                @if (ck.criteriaUpdates?.length) {
+                  <div class="criteria-updates">
+                    @for (upd of ck.criteriaUpdates; track upd.criteriaId) {
+                      <mat-chip>{{ upd.criteriaId }}: {{ upd.value }}</mat-chip>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

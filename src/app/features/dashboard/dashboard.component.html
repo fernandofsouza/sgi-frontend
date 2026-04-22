@@ -1,0 +1,113 @@
+<div class="dashboard">
+  <header class="page-header">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Visão geral dos indicadores do time</p>
+  </header>
+
+  <!-- ── Filtros ─────────────────────────────────────────────────────── -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <div class="filters">
+        <mat-form-field appearance="outline">
+          <mat-label>Ano</mat-label>
+          <mat-select [(ngModel)]="filterYear" (ngModelChange)="loadIndicators()">
+            @for (y of years; track y) {
+              <mat-option [value]="y">{{ y }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Periodicidade</mat-label>
+          <mat-select [(ngModel)]="filterRange" (ngModelChange)="onRangeChange()">
+            <mat-option value="all">Todos</mat-option>
+            @for (r of referenceRanges; track r.value) {
+              <mat-option [value]="r.value">{{ r.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        @if (filterRange !== 'all') {
+          <mat-form-field appearance="outline">
+            <mat-label>Referência</mat-label>
+            <mat-select [(ngModel)]="filterLabel" (ngModelChange)="loadIndicators()">
+              <mat-option value="all">Todos</mat-option>
+              @for (opt of refOptions(); track opt) {
+                <mat-option [value]="opt">{{ opt }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ── Stat Cards ──────────────────────────────────────────────────── -->
+  <div class="stat-grid">
+    @for (stat of statCards(); track stat.label) {
+      <mat-card class="stat-card" [ngClass]="{ active: activeFilter() === stat.filter }"
+                (click)="toggleFilter(stat.filter)">
+        <mat-card-content>
+          <div class="stat-icon" [ngClass]="stat.colorClass">
+            <mat-icon>{{ stat.icon }}</mat-icon>
+          </div>
+          <p class="stat-label">{{ stat.label }}</p>
+          <p class="stat-value">{{ stat.value }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <!-- ── Indicadores ─────────────────────────────────────────────────── -->
+  <section>
+    <h2 class="section-title">
+      Indicadores
+      @if (activeFilter() !== 'all') { — {{ activeFilterLabel() }} }
+      ({{ filterYear }})
+    </h2>
+
+    @if (loading()) {
+      <mat-progress-bar mode="indeterminate" />
+    } @else if (displayIndicators().length === 0) {
+      <div class="empty-state">
+        <mat-icon>inbox</mat-icon>
+        <p>Nenhum indicador encontrado para este filtro.</p>
+      </div>
+    } @else {
+      <div class="indicator-grid">
+        @for (ind of displayIndicators(); track ind.id) {
+          <mat-card class="indicator-card" [routerLink]="['/indicators', ind.id]">
+            <mat-card-header>
+              <div mat-card-avatar class="seq-badge">#{{ ind.seqId }}</div>
+              <mat-card-title>{{ ind.title }}</mat-card-title>
+              <mat-card-subtitle>{{ ind.pdgId }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="badges">
+                <span class="badge" [ngClass]="progressClass(ind.progressStatus)">
+                  {{ ind.progressStatus }}
+                </span>
+                <span class="badge badge-outline">{{ ind.creationStatus }}</span>
+              </div>
+              <div class="progress-section">
+                <div class="progress-header">
+                  <span>Progresso</span>
+                  <span class="progress-pct">{{ ind.progress }}%</span>
+                </div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="ind.progress"
+                  [ngClass]="progressBarClass(ind.progressStatus)" />
+              </div>
+              <div class="indicator-meta">
+                <span><mat-icon class="meta-icon">people</mat-icon>{{ ind.assignees.length }}</span>
+                <span><mat-icon class="meta-icon">event_available</mat-icon>{{ ind.checkInCount }}</span>
+                <span><mat-icon class="meta-icon">calendar_today</mat-icon>{{ ind.targetDate | slice:0:10 }}</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    }
+  </section>
+</div>
