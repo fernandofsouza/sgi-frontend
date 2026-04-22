@@ -1,0 +1,42 @@
+<div class="team-page">
+  <header class="page-header">
+    <div>
+      <h1><mat-icon>group</mat-icon> Equipe</h1>
+      <p class="subtitle">Membros da equipe e seus perfis</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>person_add</mat-icon> Novo Membro
+    </button>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-center"><mat-spinner diameter="40" /></div>
+  } @else {
+    <div class="member-grid">
+      @for (member of members(); track member.id) {
+        <mat-card class="member-card">
+          <mat-card-content>
+            <div class="member-header">
+              <div class="avatar">{{ initials(member.name) }}</div>
+              <div class="member-info">
+                <span class="member-name">{{ member.name }}</span>
+                <span class="member-role">{{ member.role }}</span>
+                @if (member.email) {
+                  <span class="member-email">{{ member.email }}</span>
+                }
+              </div>
+            </div>
+            <div class="member-actions">
+              <button mat-icon-button (click)="openDialog(member)" matTooltip="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteMember(member.id)" matTooltip="Remover">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

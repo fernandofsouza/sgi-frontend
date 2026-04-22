@@ -59,73 +59,8 @@ export class TeamMemberDialogComponent {
     MatCardModule, MatIconModule, MatButtonModule,
     MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,
   ],
-  template: `
-    <div class="team-page">
-      <header class="page-header">
-        <div>
-          <h1><mat-icon>group</mat-icon> Equipe</h1>
-          <p class="subtitle">Membros da equipe e seus perfis</p>
-        </div>
-        <button mat-raised-button color="primary" (click)="openDialog()">
-          <mat-icon>person_add</mat-icon> Novo Membro
-        </button>
-      </header>
-
-      @if (loading()) {
-        <div class="loading-center"><mat-spinner diameter="40" /></div>
-      } @else {
-        <div class="member-grid">
-          @for (member of members(); track member.id) {
-            <mat-card class="member-card">
-              <mat-card-content>
-                <div class="member-header">
-                  <div class="avatar">{{ initials(member.name) }}</div>
-                  <div class="member-info">
-                    <span class="member-name">{{ member.name }}</span>
-                    <span class="member-role">{{ member.role }}</span>
-                    @if (member.email) {
-                      <span class="member-email">{{ member.email }}</span>
-                    }
-                  </div>
-                </div>
-                <div class="member-actions">
-                  <button mat-icon-button (click)="openDialog(member)" matTooltip="Editar">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" (click)="deleteMember(member.id)" matTooltip="Remover">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          }
-        </div>
-      }
-    </div>
-  `,
-  styles: [`
-    .team-page { display: flex; flex-direction: column; gap: 24px; }
-    .page-header { display: flex; justify-content: space-between; align-items: flex-start; }
-    .page-header h1 { font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin: 0; }
-    .subtitle { color: #64748b; margin: 4px 0 0; font-size: 14px; }
-    .loading-center { display: flex; justify-content: center; padding: 64px; }
-
-    .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .member-card mat-card-content { padding: 20px !important; }
-
-    .member-header { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
-    .avatar {
-      width: 48px; height: 48px; border-radius: 50%; background: #3b82f6; color: white;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 16px; flex-shrink: 0;
-    }
-    .member-info { display: flex; flex-direction: column; }
-    .member-name { font-weight: 600; font-size: 15px; }
-    .member-role { font-size: 13px; color: #64748b; }
-    .member-email { font-size: 12px; color: #94a3b8; }
-
-    .member-actions { display: flex; justify-content: flex-end; gap: 4px; }
-  `],
+  templateUrl: './team.component.html',
+  styleUrl: './team.component.css',
 })
 export class TeamComponent implements OnInit {
   private readonly teamSvc = inject(TeamMemberService);
